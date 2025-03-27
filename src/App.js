@@ -1,24 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import { ThemeProvider } from '@mui/material/styles';
+import { theme } from './theme';
+import { AuthProvider } from './context/AuthContext';
+import { Routes, Route } from 'react-router-dom';
+import AuthPage from './pages/AuthPage';
+import Dashboard from './pages/Dashboard';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <AuthProvider>
+        <Routes>
+          <Route path="/" element={<AuthPage />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Routes>
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
 
