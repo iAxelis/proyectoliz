@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { 
@@ -12,11 +12,39 @@ import {
 import { Logout, Add } from '@mui/icons-material';
 import AccessTable from '../components/AccessTable';
 import UserModal from '../components/UserModal';
+import apiService from '../services/apiService';
 
 const Dashboard = () => {
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
   const [openModal, setOpenModal] = useState(false);
+  const [accessLogs, setAccessLogs] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await apiService.getRecords();
+        console.log("Datos recibidos: ",response);
+
+        if(Array.isArray(response) && response.length > 0 && response[0].data) {
+
+          const transformedData = response[0].data.map( (item, index) => ({
+            id: item.id_record || item.id,
+            nombre: item.nombre || "Desconocido",
+            apellido: item.apellido || "Desconocido",
+            fechaHora: item.fechaHora ? new Date(item.fechaHora).toLocaleString(): "Fecha no disponible",
+            tipoAcceso: item.tipoAcceso ? item.tipoAcceso.charAt(0).toUpperCase() + item.tipoAcceso.slice(1) : 'Desconocido'
+          }));
+          setAccessLogs(transformedData);
+        }
+        
+      } catch (err) {
+        console.error('Error al obtener datos: ', err);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleLogout = () => {
     logout();
@@ -41,7 +69,7 @@ const Dashboard = () => {
       </AppBar>
 
       <Container maxWidth="lg" sx={{ mt: 4, position: 'relative' }}>
-        <AccessTable />
+        <AccessTable accessLogs={accessLogs} />
         
         <Fab 
           color="secondary" 

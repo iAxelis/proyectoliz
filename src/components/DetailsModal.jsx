@@ -20,11 +20,9 @@ const DetailsModal = ({ open, onClose, data }) => {
         {data && (
           <>
             <Typography><strong>Nombre:</strong> {data.nombre}</Typography>
-            <Typography><strong>Hora:</strong> {data.hora}</Typography>
-            <Typography><strong>Método:</strong> {data.metodo}</Typography>
-            <Typography><strong>Email:</strong> {data.email}</Typography>
-            <Typography><strong>Tipo:</strong> {data.tipo}</Typography>
-            <Typography><strong>Detalles:</strong> {data.detalles}</Typography>
+            <Typography><strong>Apellido:</strong> {data.apellido}</Typography>
+            <Typography><strong>Método:</strong> {data.tipoAcceso}</Typography>
+            <Typography><strong>Fecha y Hora:</strong> {data.fechaHora}</Typography>
           </>
         )}
         <Button 

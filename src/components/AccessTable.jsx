@@ -20,19 +20,8 @@ import {
 } from '@mui/icons-material';
 import DetailsModal from './DetailsModal';
 
-const AccessTable = () => {
+const AccessTable = ({ accessLogs }) => {
   const [selectedAccess, setSelectedAccess] = useState(null);
-  const [accessLogs] = useState([
-    { 
-      id: 1, 
-      nombre: "Juan Pérez", 
-      hora: "2023-08-20 08:15:00", 
-      metodo: "Huella", 
-      detalles: "Acceso autorizado sector A",
-      email: "juan@empresa.com",
-      tipo: "Administrador"
-    },
-  ]);
 
   const getMethodIcon = (method) => {
     switch(method.toLowerCase()) {
@@ -57,13 +46,13 @@ const AccessTable = () => {
           </TableHead>
           <TableBody>
             {accessLogs.map((log) => (
-              <TableRow key={log.id} hover>
+              <TableRow key={log.id || Math.random()} hover>
                 <TableCell>{log.nombre}</TableCell>
-                <TableCell>{log.hora}</TableCell>
+                <TableCell>{log.fechaHora}</TableCell>
                 <TableCell>
                   <Chip
-                    icon={getMethodIcon(log.metodo)}
-                    label={log.metodo}
+                    icon={getMethodIcon(log.tipoAcceso)}
+                    label={log.tipoAcceso}
                     variant="outlined"
                   />
                 </TableCell>
