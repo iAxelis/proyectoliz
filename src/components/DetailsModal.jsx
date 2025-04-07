@@ -19,8 +19,12 @@ const DetailsModal = ({ open, onClose, data }) => {
         </Typography>
         {data && (
           <>
-            <Typography><strong>Nombre:</strong> {data.nombre}</Typography>
-            <Typography><strong>Apellido:</strong> {data.apellido}</Typography>
+            <Typography style={{ color: data.nombre === "No Autorizado" ? "red" : "inherit" }}>
+              <strong>Nombre:</strong> {data.nombre}
+            </Typography>
+            <Typography style={{ color: data.apellido === "No Autorizado" ? "red" : "inherit" }}>
+              <strong>Apellido:</strong> {data.apellido}
+            </Typography>
             <Typography><strong>Método:</strong> {data.tipoAcceso}</Typography>
             <Typography><strong>Fecha y Hora:</strong> {data.fechaHora}</Typography>
           </>

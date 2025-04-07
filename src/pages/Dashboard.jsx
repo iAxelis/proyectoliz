@@ -30,8 +30,8 @@ const Dashboard = () => {
 
           const transformedData = response[0].data.map( (item, index) => ({
             id: item.id_record || item.id,
-            nombre: item.nombre || "Desconocido",
-            apellido: item.apellido || "Desconocido",
+            nombre: item.nombre || "No Autorizado",
+            apellido: item.apellido || "No Autorizado",
             fechaHora: item.fechaHora ? new Date(item.fechaHora).toLocaleString(): "Fecha no disponible",
             tipoAcceso: item.tipoAcceso ? item.tipoAcceso.charAt(0).toUpperCase() + item.tipoAcceso.slice(1) : 'Desconocido'
           }));

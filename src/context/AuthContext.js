@@ -6,8 +6,16 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem('accessControlUser');
-    if (storedUser) setUser(JSON.parse(storedUser));
+    try {
+      const storedUser = localStorage.getItem('accessControlUser');
+      if (storedUser) {
+        const parsedUser = JSON.parse(storedUser);
+        setUser(parsedUser);
+      }
+    } catch (error) {
+      console.error('Error al parsear usuario desde localStorage:', error);
+      localStorage.removeItem('accessControlUser');
+    }
   }, []);
 
   const login = (userData) => {

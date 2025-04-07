@@ -12,8 +12,6 @@ import {
 } from '@mui/material';
 import { 
   Info as InfoIcon,
-  Edit,
-  Delete,
   Fingerprint,
   CreditCard,
   Pin
@@ -47,7 +45,9 @@ const AccessTable = ({ accessLogs }) => {
           <TableBody>
             {accessLogs.map((log) => (
               <TableRow key={log.id || Math.random()} hover>
-                <TableCell>{log.nombre}</TableCell>
+                <TableCell style={{ color: log.nombre === "No Autorizado" ? "red" : "inherit" }}>
+                  {log.nombre}
+                </TableCell>
                 <TableCell>{log.fechaHora}</TableCell>
                 <TableCell>
                   <Chip
@@ -59,12 +59,6 @@ const AccessTable = ({ accessLogs }) => {
                 <TableCell>
                   <IconButton onClick={() => setSelectedAccess(log)}>
                     <InfoIcon color="info" />
-                  </IconButton>
-                  <IconButton>
-                    <Edit color="warning" />
-                  </IconButton>
-                  <IconButton>
-                    <Delete color="error" />
                   </IconButton>
                 </TableCell>
               </TableRow>
